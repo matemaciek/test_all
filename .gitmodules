@@ -1,0 +1,24 @@
+[submodule "test_a"]
+	path = test_a
+	url = git@github.com:matemaciek/test_a.git
+[submodule "test_b"]
+	path = test_b
+	url = git@github.com:matemaciek/test_b.git
+[submodule "test_c"]
+	path = test_c
+	url = git@github.com:matemaciek/test_c.git
+[submodule "test_d"]
+	path = test_d
+	url = git@github.com:matemaciek/test_d.git
+[submodule "test_e"]
+	path = test_e
+	url = git@github.com:matemaciek/test_e.git
+[submodule "test_f"]
+	path = test_f
+	url = git@github.com:matemaciek/test_f.git
+[submodule "test_g"]
+	path = test_g
+	url = git@github.com:matemaciek/test_g.git
+[submodule "test_h"]
+	path = test_h
+	url = git@github.com:matemaciek/test_h.git
