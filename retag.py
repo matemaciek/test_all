@@ -51,7 +51,7 @@ def checkout(repo, ref):
     @param ref: reference to checkout
     """
     enter_repo(repo)
-    subprocess.call(["git", "checkout", ref])
+    subprocess.check_call(["git", "checkout", ref])
 
 
 def children(repo):
@@ -188,9 +188,9 @@ def commit_conf(conf):
     msg_conf = ""
     for repo in sorted(conf.keys()):
         msg_conf += "{0},{1}\n".format(repo, str(conf[repo]))
-    subprocess.call(["git", "commit", "-a", "-m",
+    subprocess.check_call(["git", "commit", "-a", "-m",
                      msg.format(root_repo, msg_conf)])
-    subprocess.call(["git", "push"])
+    subprocess.check_call(["git", "push"])
 
 
 parser = argparse.ArgumentParser(description='Chooses newest configuration for repository tree.')
