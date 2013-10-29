@@ -188,9 +188,12 @@ def commit_conf(conf):
     msg_conf = ""
     for repo in sorted(conf.keys()):
         msg_conf += "{0},{1}\n".format(repo, str(conf[repo]))
-    subprocess.check_call(["git", "commit", "-a", "-m",
-                     msg.format(root_repo, msg_conf)])
-    subprocess.check_call(["git", "push"])
+    if not subprocess.call(["git", "diff-index", "--quiet", "HEAD"]):
+        print "Upgrading to new, better configuration."
+        subprocess.check_call(["git", "commit", "-a", "-m", msg.format(root_repo, msg_conf)])
+        subprocess.check_call(["git", "push"])
+    else:
+        print "Nihil sub sole novum, exiting."
 
 
 parser = argparse.ArgumentParser(description='Chooses newest configuration for repository tree.')
