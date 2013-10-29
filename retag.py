@@ -188,7 +188,7 @@ def commit_conf(conf):
     msg_conf = ""
     for repo in sorted(conf.keys()):
         msg_conf += "{0},{1}\n".format(repo, str(conf[repo]))
-    if not subprocess.call(["git", "diff-index", "--quiet", "HEAD"]):
+    if subprocess.call(["git", "diff-index", "--quiet", "HEAD"]) == 1:
         print "Upgrading to new, better configuration."
         subprocess.check_call(["git", "commit", "-a", "-m", msg.format(root_repo, msg_conf)])
         subprocess.check_call(["git", "push"])
