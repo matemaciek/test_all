@@ -157,7 +157,11 @@ def best_snag(snags):
     """
     vers = [snag[root_repo] for snag in snags]
     best_v = semantic_version.Spec(">=0.0.0").select(vers)
-    result = next(snag for snag in snags if snag[root_repo] == best_v)
+    try:
+        result = next(snag for snag in snags if snag[root_repo] == best_v)
+    except StopIteration:
+        print "No suitable configuration found, dying..."
+        raise
     return result
 
 
