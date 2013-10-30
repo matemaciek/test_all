@@ -3,6 +3,7 @@ import argparse
 import os
 import subprocess
 import semantic_version
+import sys
 
 base_path = ""
 base_repo = ""
@@ -173,7 +174,7 @@ def set_conf(conf):
     @param conf: configuration to be set
     """
     for repo in conf.keys():
-        print "checking out {0} in version {1}".format(repo, str(conf[repo]))
+        print >> sys.stderr, "checking out {0} in version {1}".format(repo, str(conf[repo]))
         checkout(repo, str(conf[repo]))
 
 
@@ -189,11 +190,11 @@ def commit_conf(conf):
     for repo in sorted(conf.keys()):
         msg_conf += "{0},{1}\n".format(repo, str(conf[repo]))
     if subprocess.call(["git", "diff-index", "--quiet", "HEAD"]) == 1:
-        print "Upgrading to new, better configuration."
+        print >> sys.stderr, "Upgrading to new, better configuration."
         subprocess.check_call(["git", "commit", "-a", "-m", msg.format(root_repo, msg_conf)])
         subprocess.check_call(["git", "push"])
     else:
-        print "Nihil sub sole novum, exiting."
+        print >> sys.stderr, "Nihil sub sole novum, exiting."
 
 
 parser = argparse.ArgumentParser(description='Chooses newest configuration for repository tree.')
