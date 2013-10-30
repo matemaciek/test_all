@@ -185,13 +185,13 @@ def commit_conf(conf):
     """
     set_conf(conf)
     enter_repo(base_repo)
-    msg = "autocommit using new configuration of {0}\n{1}"
+    msg = "autocommit using new configuration\n{0}"
     msg_conf = ""
     for repo in sorted(conf.keys()):
         msg_conf += "{0},{1}\n".format(repo, str(conf[repo]))
     if subprocess.call(["git", "diff-index", "--quiet", "HEAD"]) == 1:
         print >> sys.stderr, "Upgrading to new, better configuration."
-        subprocess.check_call(["git", "commit", "-a", "-m", msg.format(root_repo, msg_conf)])
+        subprocess.check_call(["git", "commit", "-a", "-m", msg.format(msg_conf)])
         subprocess.check_call(["git", "push"])
     else:
         print >> sys.stderr, "Nihil sub sole novum, exiting."
@@ -210,6 +210,5 @@ base_repo = args.base_repo
 root_repo = args.root_repo
 children_file = args.children_file
 
-#print doable_str(cut_the_trees(doable_forest("test_a")))
-#print best_conf()
-commit_conf(best_conf())
+#commit_conf(best_conf()) # TODO: resolve issues with commit and push (it get messed up when called via chef)
+set_conf(best_conf())
