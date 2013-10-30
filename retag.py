@@ -26,9 +26,9 @@ def enter_repo(repo):
     enters repository
     @param repo: repository to enter
     """
-    path = base_path + base_repo
+    path = os.path.join(base_path, base_repo)
     if repo != base_repo:
-        path += "/" + repo
+        path = os.path.join(path, repo)
     os.chdir(path)
 
 
@@ -174,7 +174,7 @@ def set_conf(conf):
     @param conf: configuration to be set
     """
     for repo in conf.keys():
-        print >> sys.stderr, "checking out {0} in version {1}".format(repo, str(conf[repo]))
+        print "checking out {0} in version {1}".format(repo, str(conf[repo]))
         checkout(repo, str(conf[repo]))
 
 
@@ -190,11 +190,11 @@ def commit_conf(conf):
     for repo in sorted(conf.keys()):
         msg_conf += "{0},{1}\n".format(repo, str(conf[repo]))
     if subprocess.call(["git", "diff-index", "--quiet", "HEAD"]) == 1:
-        print >> sys.stderr, "Upgrading to new, better configuration."
+        print "Upgrading to new, better configuration."
         subprocess.check_call(["git", "commit", "-a", "-m", msg.format(msg_conf)])
         subprocess.check_call(["git", "push"])
     else:
-        print >> sys.stderr, "Nihil sub sole novum, exiting."
+        print "Nihil sub sole novum, exiting."
 
 
 parser = argparse.ArgumentParser(description='Chooses newest configuration for repository tree.')
