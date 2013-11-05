@@ -214,5 +214,5 @@ base_repo = args.base_repo
 root_repo = args.root_repo
 children_file = args.children_file
 
-#commit_conf(best_conf()) # TODO: resolve issues with commit and push (it get messed up when called via chef)
-set_conf(best_conf())
+commit_conf(best_conf()) # TODO: resolve issues with commit and push (it get messed up when called via chef)
+#set_conf(best_conf())
